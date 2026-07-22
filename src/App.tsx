@@ -1,5 +1,8 @@
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
+import Arena from "./components/Arena";
+import Ball from "./components/Ball";
+import Wall from "./components/Wall";
 
 function App() {
   return (
@@ -8,6 +11,12 @@ function App() {
         <ambientLight intensity={0.5} />
         <directionalLight position={[10, 10, 5]} intensity={1} />
         <OrbitControls />
+        <Arena />
+        <Ball />
+        <Wall position={[5.1, 0.5, 0]} size={[0.2, 1, 10.4]} />
+        <Wall position={[-5.1, 0.5, 0]} size={[0.2, 1, 10.4]} />
+        <Wall position={[0, 0.5, 5.1]} size={[10.4, 1, 0.2]} />
+        <Wall position={[0, 0.5, -5.1]} size={[10.4, 1, 0.2]} />
       </Canvas>
     </div>
   );
