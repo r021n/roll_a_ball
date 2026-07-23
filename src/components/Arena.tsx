@@ -3,7 +3,7 @@ import { useBox } from "@react-three/cannon";
 export default function Arena() {
   const [ref] = useBox(() => ({
     type: "Static",
-    args: [10, 0.2, 10],
+    args: [10, 10, 0.2],
     position: [0, 0, 0],
     rotation: [-Math.PI / 2, 0, 0],
   }));

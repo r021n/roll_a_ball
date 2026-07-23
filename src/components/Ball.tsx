@@ -34,7 +34,7 @@ export default function Ball() {
         case "arrowdown":
           keys.current.s = true;
           break;
-        case "a":
+        case "d":
         case "arrowright":
           keys.current.d = true;
           break;
@@ -55,16 +55,42 @@ export default function Ball() {
         case "arrowdown":
           keys.current.s = false;
           break;
-        case "a":
+        case "d":
         case "arrowright":
           keys.current.d = false;
           break;
       }
     };
+
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("keyup", handleKeyUp);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("keyup", handleKeyUp);
+    };
+  }, []);
+
+  useFrame(() => {
+    const force = 5;
+    const direction = new THREE.Vector3();
+
+    if (keys.current.w) direction.z -= 1;
+    if (keys.current.s) direction.z += 1;
+    if (keys.current.a) direction.x -= 1;
+    if (keys.current.d) direction.x += 1;
+
+    if (direction.length() > 0) {
+      direction.normalize();
+      api.applyImpulse(
+        [direction.x * force, 0, direction.z * force],
+        [0, 0, 0],
+      );
+    }
   });
 
   return (
-    <mesh position={[0, 0.5, 0]}>
+    <mesh ref={ref}>
       <sphereGeometry args={[0.5, 32, 32]} />
       <meshStandardMaterial color="#e74c3c" />
     </mesh>
